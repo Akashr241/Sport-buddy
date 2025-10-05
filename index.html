@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Buddy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+   
+</head>
+<body>
+    <div class="hero">
+        <h1>🏃 Sports Buddy</h1>
+        <p>Find Your Perfect Sports Partner</p>
+    </div>
+
+    <div class="main-container">
+        <div id="alert"></div>
+
+        <!-- Login -->
+        <div id="login" class="section active">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card-custom">
+                        <h2 class="text-center mb-4">Login</h2>
+                        <div class="credentials">
+                            <strong>Test Accounts:</strong><br>
+                            Admin: admin@sportsbuddy.com / admin123<br>
+                            User: user@sportsbuddy.com / user123
+                        </div>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="loginEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="loginPass">
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="login()">Login</button>
+                        <p class="text-center mt-3">
+                            <a href="#" onclick="goTo('register')">Register</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register -->
+        <div id="register" class="section">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card-custom">
+                        <h2 class="text-center mb-4">Register</h2>
+                        <div class="mb-3">
+                            <label>Name</label>
+                            <input type="text" class="form-control" id="regName">
+                        </div>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="regEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="regPass">
+                        </div>
+                        <div class="mb-3">
+                            <label>Role</label>
+                            <select class="form-control" id="regRole">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="register()">Register</button>
+                        <p class="text-center mt-3">
+                            <a href="#" onclick="goTo('login')">Back to Login</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Dashboard -->
+        <div id="userDash" class="section">
+            <div class="card-custom">
+                <div class="user-info">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3>Hello, <span id="userName"></span>!</h3>
+                            <p class="mb-0">Find your sports buddy</p>
+                        </div>
+                        <button class="btn btn-light" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showTab('browse')">Browse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showTab('myevents')">My Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showTab('create')">Create</a>
+                    </li>
+                </ul>
+
+                <div id="browse" class="tab-content">
+                    <h4>Browse Events</h4>
+                    <div id="eventsList"></div>
+                </div>
+
+                <div id="myevents" class="tab-content d-none">
+                    <h4>My Events</h4>
+                    <div id="myEventsList"></div>
+                </div>
+
+                <div id="create" class="tab-content d-none">
+                    <h4>Create Event</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Event Name</label>
+                            <input type="text" class="form-control" id="eName">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Sport</label>
+                            <select class="form-control" id="eSport"></select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>City</label>
+                            <select class="form-control" id="eCity"></select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Area</label>
+                            <select class="form-control" id="eArea"></select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Date</label>
+                            <input type="date" class="form-control" id="eDate">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Time</label>
+                            <input type="time" class="form-control" id="eTime">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label>Location</label>
+                            <input type="text" class="form-control" id="eLoc">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label>Skill Level</label>
+                            <select class="form-control" id="eSkill">
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Advanced</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" onclick="createEvent()">Create Event</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminDash" class="section">
+            <div class="card-custom">
+                <div class="user-info">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3>Admin Dashboard</h3>
+                            <p class="mb-0">Manage Platform</p>
+                        </div>
+                        <button class="btn btn-light" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 id="sSports">0</h3>
+                            <p>Sports</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 id="sCities">0</h3>
+                            <p>Cities</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 id="sAreas">0</h3>
+                            <p>Areas</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-box">
+                            <h3 id="sEvents">0</h3>
+                            <p>Events</p>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showAdminTab('sports')">Sports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAdminTab('cities')">Cities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAdminTab('areas')">Areas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAdminTab('events')">Events</a>
+                    </li>
+                </ul>
+
+                <div id="sports" class="admin-tab">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="sportName" placeholder="Sport Name">
+                        <button class="btn btn-primary mt-2" onclick="addSport()">Add Sport</button>
+                    </div>
+                    <div id="sportsList"></div>
+                </div>
+
+                <div id="cities" class="admin-tab d-none">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="cityName" placeholder="City Name">
+                        <button class="btn btn-primary mt-2" onclick="addCity()">Add City</button>
+                    </div>
+                    <div id="citiesList"></div>
+                </div>
+
+                <div id="areas" class="admin-tab d-none">
+                    <div class="mb-3">
+                        <select class="form-control mb-2" id="areaCity"></select>
+                        <input type="text" class="form-control" id="areaName" placeholder="Area Name">
+                        <button class="btn btn-primary mt-2" onclick="addArea()">Add Area</button>
+                    </div>
+                    <div id="areasList"></div>
+                </div>
+
+                <div id="events" class="admin-tab d-none">
+                    <div id="adminEventsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="backend.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
